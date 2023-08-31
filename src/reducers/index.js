@@ -1,8 +1,12 @@
-export default function products(state = [], action) {
+import { FETCH_PRODUCTS } from "../actions";
+const initialProductsState = {
+  products: [],
+};
+export default function products(state = initialProductsState, action) {
   switch (action.type) {
-    case "FETCH_PRODUCTS":
+    case FETCH_PRODUCTS:
       return {
-        ...state,
+        products: action.products,
       };
     default:
       return state;

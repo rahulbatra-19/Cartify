@@ -1,6 +1,11 @@
 import React from "react";
+import { fetchProducts } from "../actions";
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
   componentDidMount() {
     const { store } = this.props;
     store.subscribe(() => {
@@ -11,7 +16,14 @@ class App extends React.Component {
     console.log("State", this.props.store.getState());
   }
   render() {
-    return <div className="App"></div>;
+    const { products } = this.props.store.getState();
+    return (
+      <div className="App">
+        {products.map((product, index) => (
+          <div>{product.title}</div>
+        ))}
+      </div>
+    );
   }
 }
 
