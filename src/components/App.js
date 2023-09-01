@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchProducts } from "../actions";
+import { fetchProducts, sortProductsInsc, sortProductsDesc } from "../actions";
 import ProductCard from "./ProductCard";
 import Navbar from "./Navbar";
 
@@ -9,8 +9,17 @@ class App extends React.Component {
     this.state = {
       sortClicked: false,
       showFilters: false,
+      selectedCategory: "",
+      sortSelected: false,
+      categories: [
+        "men's clothing",
+        "jewelery",
+        "electronics",
+        "women's clothing",
+      ],
     };
   }
+
   componentDidMount() {
     const { store } = this.props;
     store.subscribe(() => {
@@ -19,10 +28,36 @@ class App extends React.Component {
     });
     store.dispatch(fetchProducts());
     console.log("State", this.props.store.getState());
+    this.findCategories();
   }
+
+  handleOptionChange = (e) => {
+    this.setState({
+      selectedCategory: e.target.value,
+    });
+    this.props.store.dispatch(fetchProducts(e.target.value));
+  };
+
+  findCategories = () => {
+    const { products } = this.props.store.getState();
+    let categories = [];
+    products.map((product) => {
+      if (!categories.includes(product.category))
+        categories.push(product.category);
+    });
+    // this.setState({
+    //   categories,
+    // });
+  };
   render() {
     const { products } = this.props.store.getState();
-    const { sortClicked, showFilters } = this.state;
+    const {
+      sortClicked,
+      showFilters,
+      categories,
+      selectedCategory,
+      sortSelected,
+    } = this.state;
     return (
       <div className="App">
         <Navbar />
@@ -111,30 +146,28 @@ class App extends React.Component {
                             <span className="font-medium text-gray-900">
                               Category
                             </span>
-                            <span className="ml-6 flex items-center">
+                            <span
+                              className="ml-6 flex items-center"
+                              onClick={() => {
+                                this.setState({
+                                  selectedCategory: "",
+                                });
+                                this.props.store.dispatch(fetchProducts());
+                              }}
+                            >
                               {/* <!-- Expand icon, show/hide based on section open state. --> */}
                               <svg
-                                className="h-5 w-5"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
+                                className="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
                                 aria-hidden="true"
                               >
                                 <path
-                                  d="M10.75 4.75a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                              {/* <!-- Collapse icon, show/hide based on section open state. --> */}
-                              <svg
-                                className="h-5 w-5"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
-                                  clipRule="evenodd"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M6 18L18 6M6 6l12 12"
                                 />
                               </svg>
                             </span>
@@ -143,82 +176,29 @@ class App extends React.Component {
                         {/* <!-- Filter section, show/hide based on section state. --> */}
                         <div className="pt-6" id="filter-section-mobile-1">
                           <div className="space-y-6">
-                            <div className="flex items-center">
-                              <input
-                                id="filter-mobile-category-0"
-                                name="category[]"
-                                value="new-arrivals"
-                                type="checkbox"
-                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                              />
-                              <label
-                                htmlFor="filter-mobile-category-0"
-                                className="ml-3 min-w-0 flex-1 text-gray-500"
+                            {categories.map((category, index) => (
+                              <div
+                                className="flex items-center"
+                                key={`category-${index}`}
                               >
-                                New Arrivals
-                              </label>
-                            </div>
-                            <div className="flex items-center">
-                              <input
-                                id="filter-mobile-category-1"
-                                name="category[]"
-                                value="sale"
-                                type="checkbox"
-                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                              />
-                              <label
-                                htmlFor="filter-mobile-category-1"
-                                className="ml-3 min-w-0 flex-1 text-gray-500"
-                              >
-                                Sale
-                              </label>
-                            </div>
-                            <div className="flex items-center">
-                              <input
-                                id="filter-mobile-category-2"
-                                name="category[]"
-                                value="travel"
-                                type="checkbox"
-                                checked
-                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                              />
-                              <label
-                                htmlFor="filter-mobile-category-2"
-                                className="ml-3 min-w-0 flex-1 text-gray-500"
-                              >
-                                Travel
-                              </label>
-                            </div>
-                            <div className="flex items-center">
-                              <input
-                                id="filter-mobile-category-3"
-                                name="category[]"
-                                value="organization"
-                                type="checkbox"
-                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                              />
-                              <label
-                                htmlFor="filter-mobile-category-3"
-                                className="ml-3 min-w-0 flex-1 text-gray-500"
-                              >
-                                Organization
-                              </label>
-                            </div>
-                            <div className="flex items-center">
-                              <input
-                                id="filter-mobile-category-4"
-                                name="category[]"
-                                value="accessories"
-                                type="checkbox"
-                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                              />
-                              <label
-                                htmlFor="filter-mobile-category-4"
-                                className="ml-3 min-w-0 flex-1 text-gray-500"
-                              >
-                                Accessories
-                              </label>
-                            </div>
+                                <input
+                                  radioGroup="category"
+                                  id={`category-${index}`}
+                                  name="category[]"
+                                  value={category}
+                                  type="radio"
+                                  checked={selectedCategory === category}
+                                  onChange={this.handleOptionChange}
+                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                />
+                                <label
+                                  htmlFor={`category-${index}`}
+                                  className="ml-3 text-sm text-gray-600"
+                                >
+                                  {category}
+                                </label>
+                              </div>
+                            ))}
                           </div>
                         </div>
                       </div>
@@ -232,20 +212,22 @@ class App extends React.Component {
                 <div className="flex">
                   <div className="relative inline-block text-left">
                     <div>
-                      <button
-                        type="button"
-                        className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900"
-                        id="menu-button"
-                        aria-expanded="false"
-                        aria-haspopup="true"
-                        onClick={() =>
-                          this.setState({
-                            sortClicked: !this.state.sortClicked,
-                          })
-                        }
-                      >
-                        Sort
-                        {sortClicked ? (
+                      {sortSelected ? (
+                        <button
+                          type="button"
+                          className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900"
+                          id="menu-button"
+                          aria-expanded="false"
+                          aria-haspopup="true"
+                          onClick={() => {
+                            this.setState({
+                              sortSelected: !sortSelected,
+                              sortClicked: false,
+                            });
+                            this.props.store.dispatch(fetchProducts());
+                          }}
+                        >
+                          Remove Sort
                           <svg
                             className="-mr-1 ml-1 h-4 w-4 mt-0 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                             viewBox="0 0 20 20"
@@ -260,7 +242,21 @@ class App extends React.Component {
                               d="M6 18L18 6M6 6l12 12"
                             />
                           </svg>
-                        ) : (
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900"
+                          id="menu-button"
+                          aria-expanded="false"
+                          aria-haspopup="true"
+                          onClick={() =>
+                            this.setState({
+                              sortClicked: !this.state.sortClicked,
+                            })
+                          }
+                        >
+                          Sort
                           <svg
                             className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                             viewBox="0 0 20 20"
@@ -273,8 +269,8 @@ class App extends React.Component {
                               clipRule="evenodd"
                             />
                           </svg>
-                        )}
-                      </button>
+                        </button>
+                      )}
                     </div>
 
                     {/* <!--
@@ -306,7 +302,16 @@ class App extends React.Component {
                             className="text-gray-500 block px-4 py-2 text-sm"
                             role="menuitem"
                             tabindex="-1"
-                            id="menu-item-3"
+                            id="menu-item-1"
+                            onClick={() => {
+                              this.setState({
+                                sortClicked: !sortClicked,
+                                sortSelected: !sortSelected,
+                              });
+                              this.props.store.dispatch(
+                                sortProductsInsc(products)
+                              );
+                            }}
                           >
                             Price: Low to High
                           </a>
@@ -315,7 +320,16 @@ class App extends React.Component {
                             className="text-gray-500 block px-4 py-2 text-sm"
                             role="menuitem"
                             tabindex="-1"
-                            id="menu-item-4"
+                            id="menu-item-2"
+                            onClick={() => {
+                              this.setState({
+                                sortClicked: !sortClicked,
+                                sortSelected: !sortSelected,
+                              });
+                              this.props.store.dispatch(
+                                sortProductsDesc(products)
+                              );
+                            }}
                           >
                             Price: High to Low
                           </a>
@@ -366,27 +380,27 @@ class App extends React.Component {
                           <span className="font-medium text-gray-900">
                             Category
                           </span>
-                          <span className="ml-6 flex items-center">
-                            {/* <!-- Expand icon, show/hide based on section open state. --> */}
+                          <span
+                            className="ml-1 flex items-center"
+                            onClick={() => {
+                              this.setState({
+                                selectedCategory: "",
+                              });
+                              this.props.store.dispatch(fetchProducts());
+                            }}
+                          >
                             <svg
-                              className="h-5 w-5"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                              aria-hidden="true"
-                            >
-                              <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-                            </svg>
-                            {/* <!-- Collapse icon, show/hide based on section open state. --> */}
-                            <svg
-                              className="h-5 w-5"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
+                              className="h-6 w-6"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
                               aria-hidden="true"
                             >
                               <path
-                                fillRule="evenodd"
-                                d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
-                                clipRule="evenodd"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6 18L18 6M6 6l12 12"
                               />
                             </svg>
                           </span>
@@ -395,82 +409,29 @@ class App extends React.Component {
                       {/* <!-- Filter section, show/hide based on section state. --> */}
                       <div className="pt-6" id="filter-section-1">
                         <div className="space-y-4">
-                          <div className="flex items-center">
-                            <input
-                              id="filter-category-0"
-                              name="category[]"
-                              value="new-arrivals"
-                              type="checkbox"
-                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            />
-                            <label
-                              htmlFor="filter-category-0"
-                              className="ml-3 text-sm text-gray-600"
+                          {categories.map((category, index) => (
+                            <div
+                              className="flex items-center"
+                              key={`category-${index}`}
                             >
-                              New Arrivals
-                            </label>
-                          </div>
-                          <div className="flex items-center">
-                            <input
-                              id="filter-category-1"
-                              name="category[]"
-                              value="sale"
-                              type="checkbox"
-                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            />
-                            <label
-                              htmlFor="filter-category-1"
-                              className="ml-3 text-sm text-gray-600"
-                            >
-                              Sale
-                            </label>
-                          </div>
-                          <div className="flex items-center">
-                            <input
-                              id="filter-category-2"
-                              name="category[]"
-                              value="travel"
-                              type="checkbox"
-                              checked
-                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            />
-                            <label
-                              htmlFor="filter-category-2"
-                              className="ml-3 text-sm text-gray-600"
-                            >
-                              Travel
-                            </label>
-                          </div>
-                          <div className="flex items-center">
-                            <input
-                              id="filter-category-3"
-                              name="category[]"
-                              value="organization"
-                              type="checkbox"
-                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            />
-                            <label
-                              htmlFor="filter-category-3"
-                              className="ml-3 text-sm text-gray-600"
-                            >
-                              Organization
-                            </label>
-                          </div>
-                          <div className="flex items-center">
-                            <input
-                              id="filter-category-4"
-                              name="category[]"
-                              value="accessories"
-                              type="checkbox"
-                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            />
-                            <label
-                              htmlFor="filter-category-4"
-                              className="ml-3 text-sm text-gray-600"
-                            >
-                              Accessories
-                            </label>
-                          </div>
+                              <input
+                                radioGroup="category"
+                                id={`category-${index}`}
+                                name="category[]"
+                                value={category}
+                                type="radio"
+                                checked={selectedCategory === category}
+                                onChange={this.handleOptionChange}
+                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              />
+                              <label
+                                htmlFor={`category-${index}`}
+                                className="ml-3 text-sm text-gray-600"
+                              >
+                                {category}
+                              </label>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     </div>
