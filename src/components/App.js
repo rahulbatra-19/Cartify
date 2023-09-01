@@ -1,6 +1,7 @@
 import React from "react";
 import { fetchProducts } from "../actions";
 import ProductCard from "./ProductCard";
+import Navbar from "./Navbar";
 
 class App extends React.Component {
   constructor(props) {
@@ -20,10 +21,12 @@ class App extends React.Component {
     const { products } = this.props.store.getState();
     return (
       <div className="App">
-        <h1>hii</h1>
-        {products.map((product, index) => (
-          <ProductCard product={product} key={`product-${index}`} />
-        ))}
+        <Navbar />
+        <ul role="list" className="ml-60 w-2/3 ">
+          {products.map((product, index) => (
+            <ProductCard product={product} key={`product-${index}`} />
+          ))}
+        </ul>
       </div>
     );
   }
