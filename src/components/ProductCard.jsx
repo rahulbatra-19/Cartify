@@ -1,10 +1,17 @@
 import { FaStar } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Navigate, redirect } from 'react-router-dom';
+import { fetchProduct } from '../actions';
+import { useNavigate } from 'react-router-dom';
 const ProductCard = (props) => {
   const { product } = props;
+  const Navigate = useNavigate();
+  const handleRedirect = () => {
+    
+    props.dispatch(fetchProduct(product.id));
+    Navigate(`/product/${product.id}`);
+  }
   return (
-    <Link to={`product/${product.id}`}>
-    <li key={product.id} className=" border-solid p-5 border-b-2 justify-between gap-x-6 py-5">
+    <li key={product.id} className=" border-solid p-5 border-b-2 justify-between gap-x-6 py-5" onClick={handleRedirect}>
       <div className="md:flex sm:block md:h-4/6 sm:h-1/3  min-w-0 gap-10  ">
         <img className="bg-gray-50 object-content md:w-1/5 h-full  sm:w-11/12 w-full "  src={product.image} alt="" />
         <div className="min-w-0 flex-auto">
@@ -18,7 +25,6 @@ const ProductCard = (props) => {
         </div>
       </div>
       </li>
-      </Link>
   );
 };
 

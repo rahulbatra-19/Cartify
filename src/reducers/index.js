@@ -8,6 +8,7 @@ import {
 const initialProductsState = {
   product: {},
   products: [],
+  loading: true,
 };
 export default function products(state = initialProductsState, action) {
   switch (action.type) {
@@ -15,6 +16,7 @@ export default function products(state = initialProductsState, action) {
       return {
         ...state,
         product: action.product,
+        loading: false,
       };
     case FETCH_PRODUCTS:
       return {

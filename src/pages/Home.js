@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { fetchProducts, sortProductsInsc, sortProductsDesc } from "../actions";
 import ProductCard from "../components/ProductCard";
 
@@ -20,13 +21,13 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    const { store } = this.props;
-    store.subscribe(() => {
-      console.log("UPDATED");
-      this.forceUpdate();
-    });
-    store.dispatch(fetchProducts());
-    console.log("State", this.props.store.getState());
+    // const { store } = this.props;
+    // store.subscribe(() => {
+    //   console.log("UPDATED");
+    //   this.forceUpdate();
+    // });
+    this.props.dispatch(fetchProducts());
+    // console.log("State", this.props.getState());
     this.findCategories();
   }
 
@@ -34,11 +35,11 @@ class Home extends React.Component {
     this.setState({
       selectedCategory: e.target.value,
     });
-    this.props.store.dispatch(fetchProducts(e.target.value));
+    this.props.dispatch(fetchProducts(e.target.value));
   };
 
   findCategories = () => {
-    const { products } = this.props.store.getState();
+    const { products } = this.props;
     let categories = [];
     products.map((product) => {
       if (!categories.includes(product.category))
@@ -49,7 +50,7 @@ class Home extends React.Component {
     // });
   };
   render() {
-    const { products } = this.props.store.getState();
+    const { products } = this.props;
     const {
       sortClicked,
       showFilters,
@@ -122,7 +123,7 @@ class Home extends React.Component {
                               this.setState({
                                 selectedCategory: "",
                               });
-                              this.props.store.dispatch(fetchProducts());
+                              this.props.dispatch(fetchProducts());
                             }}
                           >
                             {/* <!-- Expand icon, show/hide based on section open state. --> */}
@@ -194,7 +195,7 @@ class Home extends React.Component {
                             sortSelected: !sortSelected,
                             sortClicked: false,
                           });
-                          this.props.store.dispatch(fetchProducts());
+                          this.props.dispatch(fetchProducts());
                         }}
                       >
                         Remove Sort
@@ -262,7 +263,7 @@ class Home extends React.Component {
                               sortClicked: !sortClicked,
                               sortSelected: !sortSelected,
                             });
-                            this.props.store.dispatch(
+                            this.props.dispatch(
                               sortProductsInsc(products)
                             );
                           }}
@@ -280,7 +281,7 @@ class Home extends React.Component {
                               sortClicked: !sortClicked,
                               sortSelected: !sortSelected,
                             });
-                            this.props.store.dispatch(
+                            this.props.dispatch(
                               sortProductsDesc(products)
                             );
                           }}
@@ -338,7 +339,7 @@ class Home extends React.Component {
                             this.setState({
                               selectedCategory: "",
                             });
-                            this.props.store.dispatch(fetchProducts());
+                            this.props.dispatch(fetchProducts());
                           }}
                         >
                           <svg
@@ -390,7 +391,11 @@ class Home extends React.Component {
                 </form>
                 <ul role="list" className="lg:w-5/6 ">
                   {products.map((product, index) => (
-                    <ProductCard product={product} key={`product-${index}`} />
+                    <ProductCard
+                      product={product}
+                      key={`product-${index}`}
+                      dispatch={this.props.dispatch}
+                    />
                   ))}
                 </ul>
               </div>
@@ -401,4 +406,12 @@ class Home extends React.Component {
     );
   }
 }
-export default Home;
+
+const mapStateToProps = (state) => {
+  return {
+    products: state.products, // Assuming your state has a "products" property
+  };
+};
+
+// Connect the component to Redux and export it
+export default connect(mapStateToProps)(Home);

@@ -34,6 +34,7 @@ export function fetchProduct(id) {
       .then((response) => {
         // Handle the response data
         let product = response.data;
+        console.log("haha", product);
         disptach(fetchingProduct(product));
       })
       .catch((error) => {
