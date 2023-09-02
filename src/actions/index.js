@@ -1,5 +1,6 @@
 import axios from "axios";
 export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
+export const FETCH_PRODUCT = "FETCH_PRODUCT";
 export const SORT_PRODUCTSINSC = "SORT_PRODUCTSINSC";
 export const SORT_PRODUCTSDESC = "SORT_PRODUCTSDESC";
 
@@ -22,6 +23,30 @@ export function fetchProducts(category) {
         // Handle errors
         console.error("Error fetching data:", error);
       });
+  };
+}
+
+export function fetchProduct(id) {
+  const url = `https://excommerce-products.onrender.com/products/${id}`;
+  return function (disptach) {
+    axios
+      .get(url)
+      .then((response) => {
+        // Handle the response data
+        let product = response.data;
+        disptach(fetchingProduct(product));
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error("Error fetching data:", error);
+      });
+  };
+}
+
+export function fetchingProduct(product) {
+  return {
+    type: FETCH_PRODUCT,
+    product,
   };
 }
 

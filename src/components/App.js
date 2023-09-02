@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./Navbar";
-import { Home, Page404 } from "../pages";
+import { Home, Page404, ProductPage } from "../pages";
 
 function App(props) {
   return (
@@ -8,7 +8,10 @@ function App(props) {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home store={props.store} />}></Route>
-        {/* <Route path="/product/:id" element={<UserInfo ></Route> */}
+        <Route
+          path="/product/:id"
+          element={<ProductPage store={props.store} />}
+        ></Route>
         <Route path="*" element={<Page404 />}></Route>
       </Routes>
     </div>

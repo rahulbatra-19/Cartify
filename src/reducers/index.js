@@ -2,15 +2,23 @@ import {
   FETCH_PRODUCTS,
   SORT_PRODUCTSINSC,
   SORT_PRODUCTSDESC,
+  FETCH_PRODUCT,
 } from "../actions";
 
 const initialProductsState = {
+  product: {},
   products: [],
 };
 export default function products(state = initialProductsState, action) {
   switch (action.type) {
+    case FETCH_PRODUCT:
+      return {
+        ...state,
+        product: action.product,
+      };
     case FETCH_PRODUCTS:
       return {
+        ...state,
         products: action.products,
       };
     case SORT_PRODUCTSINSC:
