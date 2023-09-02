@@ -13,6 +13,7 @@ const initialProductsState = {
 export default function products(state = initialProductsState, action) {
   switch (action.type) {
     case FETCH_PRODUCT:
+      console.log("haha2", action.product);
       return {
         ...state,
         product: action.product,

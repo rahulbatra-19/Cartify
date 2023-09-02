@@ -7,7 +7,7 @@ const ProductCard = (props) => {
   const Navigate = useNavigate();
   const handleRedirect = () => {
     
-    props.dispatch(fetchProduct(product.id));
+    props.dispatch(fetchProduct(product));
     Navigate(`/product/${product.id}`);
   }
   return (

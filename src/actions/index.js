@@ -26,25 +26,25 @@ export function fetchProducts(category) {
   };
 }
 
-export function fetchProduct(id) {
-  const url = `https://excommerce-products.onrender.com/products/${id}`;
-  return function (disptach) {
-    axios
-      .get(url)
-      .then((response) => {
-        // Handle the response data
-        let product = response.data;
-        console.log("haha", product);
-        disptach(fetchingProduct(product));
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error("Error fetching data:", error);
-      });
-  };
-}
+// export function fetchProduct(product) {
+//   const url = `https://excommerce-products.onrender.com/products/${id}`;
+//   return function (disptach) {
+//     axios
+//       .get(url)
+//       .then((response) => {
+//         // Handle the response data
+//         let product = response.data;
+//         console.log("haha", product);
+//         disptach(fetchingProduct(product));
+//       })
+//       .catch((error) => {
+//         // Handle errors
+//         console.error("Error fetching data:", error);
+//       });
+//   };
+// }
 
-export function fetchingProduct(product) {
+export function fetchProduct(product) {
   return {
     type: FETCH_PRODUCT,
     product,
