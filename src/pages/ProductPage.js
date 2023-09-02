@@ -2,6 +2,7 @@ import React from "react";
 import Loader from "../components/Loader";
 // import { connect } from "react-redux";
 import { connect } from "react-redux";
+import { AddProductToCart } from "../actions";
 
 class ProductPage extends React.Component {
   constructor(props) {
@@ -13,17 +14,17 @@ class ProductPage extends React.Component {
   componentDidMount() {
     console.log("StatePRoduct", this.props);
   }
-  shouldComponentUpdate(nextProps, nextState) {
-    // Check the condition for re-rendering
-    return this.state.shouldUpdate !== nextState.shouldUpdate;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   // Check the condition for re-rendering
+  //   return this.state.shouldUpdate !== nextState.shouldUpdate;
+  // }
+  handleAddToCart = (e) => {
+    e.stopPropagation();
+    this.props.dispatch(AddProductToCart(this.props.product));
+  };
 
   render() {
-    const { product, loading } = this.props;
-    this.setState({
-      loadingComp: loading,
-    });
-    console.log("rendered", product);
+    const { product, cartProducts } = this.props;
     const rate = Math.round(product.rating.rate);
 
     return (
@@ -100,14 +101,23 @@ class ProductPage extends React.Component {
                 </div>
               </div>
 
-              <form class="mt-10">
+              {cartProducts.find((product) => product.id === product.id) ? (
                 <button
-                  type="submit"
-                  class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-400 px-8 py-3 text-base font-medium text-white hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:bg-yellow-600 focus:ring-offset-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
                 >
-                  Add to bag
+                  Added to Cart
                 </button>
-              </form>
+              ) : (
+                <button
+                  class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  onClick={this.handleAddToCart}
+                >
+                  Add to cart
+                </button>
+              )}
             </div>
 
             <div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
@@ -129,7 +139,8 @@ class ProductPage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    product: state.product, // Assuming your state has a "product" property
+    product: state.product,
+    cartProducts: state.cartProducts,
   };
 };
 

@@ -3,7 +3,8 @@ export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
 export const FETCH_PRODUCT = "FETCH_PRODUCT";
 export const SORT_PRODUCTSINSC = "SORT_PRODUCTSINSC";
 export const SORT_PRODUCTSDESC = "SORT_PRODUCTSDESC";
-
+export const ADD_TO_CART = "ADD_TO_CART";
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export function fetchProducts(category) {
   const url = "https://excommerce-products.onrender.com/products";
   return function (dispatch) {
@@ -26,23 +27,19 @@ export function fetchProducts(category) {
   };
 }
 
-// export function fetchProduct(product) {
-//   const url = `https://excommerce-products.onrender.com/products/${id}`;
-//   return function (disptach) {
-//     axios
-//       .get(url)
-//       .then((response) => {
-//         // Handle the response data
-//         let product = response.data;
-//         console.log("haha", product);
-//         disptach(fetchingProduct(product));
-//       })
-//       .catch((error) => {
-//         // Handle errors
-//         console.error("Error fetching data:", error);
-//       });
-//   };
-// }
+export function AddProductToCart(product) {
+  return {
+    type: ADD_TO_CART,
+    product,
+  };
+}
+
+export function RemoveProductFromCart(product) {
+  return {
+    type: REMOVE_FROM_CART,
+    product,
+  };
+}
 
 export function fetchProduct(product) {
   return {

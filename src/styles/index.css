@@ -10,11 +10,29 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
+    @layer utilities {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+   .cartIconContainer {
+        position: relative;
+    }
+    .cartCount {
+      border-radius: 50%;
+        
+        padding: 2px 4px;
+        position : absolute;
+        /* right: 0; */
+        /* top:-4; */
+    }
 
 .loader {
         transform: rotateZ(45deg);

@@ -50,7 +50,7 @@ class Home extends React.Component {
     // });
   };
   render() {
-    const { products } = this.props;
+    const { products, cartProducts } = this.props;
     const {
       sortClicked,
       showFilters,
@@ -179,7 +179,8 @@ class Home extends React.Component {
             </div>
           )}
           <main className=" px-2 sm:pxl-3 lg:pl-3">
-            <div className="flex items-baseline border-b border-gray-200 pb-6 pt-6 mr-6 justify-end">
+            <div className="flex items-baseline border-b border-gray-200 pb-6 pt-6 mr-6 justify-between">
+              <button className="rounded-full p-1 text-white bg-blue-700">Add Product +</button>
               <div className="flex">
                 <div className="relative inline-block text-left">
                   <div>
@@ -263,9 +264,7 @@ class Home extends React.Component {
                               sortClicked: !sortClicked,
                               sortSelected: !sortSelected,
                             });
-                            this.props.dispatch(
-                              sortProductsInsc(products)
-                            );
+                            this.props.dispatch(sortProductsInsc(products));
                           }}
                         >
                           Price: Low to High
@@ -281,9 +280,7 @@ class Home extends React.Component {
                               sortClicked: !sortClicked,
                               sortSelected: !sortSelected,
                             });
-                            this.props.dispatch(
-                              sortProductsDesc(products)
-                            );
+                            this.props.dispatch(sortProductsDesc(products));
                           }}
                         >
                           Price: High to Low
@@ -395,6 +392,7 @@ class Home extends React.Component {
                       product={product}
                       key={`product-${index}`}
                       dispatch={this.props.dispatch}
+                      cartProducts={cartProducts}
                     />
                   ))}
                 </ul>
@@ -409,7 +407,8 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    products: state.products, // Assuming your state has a "products" property
+    products: state.products,
+    cartProducts: state.cartProducts, // Assuming your state has a "products" property
   };
 };
 

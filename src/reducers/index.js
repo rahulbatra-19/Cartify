@@ -3,17 +3,19 @@ import {
   SORT_PRODUCTSINSC,
   SORT_PRODUCTSDESC,
   FETCH_PRODUCT,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
 } from "../actions";
 
 const initialProductsState = {
   product: {},
   products: [],
+  cartProducts: [],
   loading: true,
 };
 export default function products(state = initialProductsState, action) {
   switch (action.type) {
     case FETCH_PRODUCT:
-      console.log("haha2", action.product);
       return {
         ...state,
         product: action.product,
@@ -33,6 +35,19 @@ export default function products(state = initialProductsState, action) {
       return {
         ...state, // Make sure to copy the existing state
         products: action.products.sort((a, b) => b.price - a.price),
+      };
+    case ADD_TO_CART:
+      return {
+        ...state,
+        cartProducts: [action.product, ...state.cartProducts],
+      };
+    case REMOVE_FROM_CART:
+      const filteredArray = state.cartProducts.filter(
+        (product) => product.id !== action.product.id
+      );
+      return {
+        ...state,
+        cartProducts: filteredArray,
       };
     default:
       return state;
