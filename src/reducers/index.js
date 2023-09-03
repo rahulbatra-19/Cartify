@@ -5,6 +5,7 @@ import {
   FETCH_PRODUCT,
   ADD_TO_CART,
   REMOVE_FROM_CART,
+  DELETED_PRODUCT,
 } from "../actions";
 
 const initialProductsState = {
@@ -48,6 +49,15 @@ export default function products(state = initialProductsState, action) {
       return {
         ...state,
         cartProducts: filteredArray,
+      };
+    case DELETED_PRODUCT:
+      const filteredArrayProducts = state.products.filter(
+        (product) => product.id !== action.product.id
+      );
+      console.log('delete Product');
+      return {
+        ...state,
+        products: filteredArrayProducts,
       };
     default:
       return state;
