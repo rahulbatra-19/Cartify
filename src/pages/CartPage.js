@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { RemoveProductFromCart } from "../actions";
+import { useNavigate } from "react-router-dom";
 
 const CartPage = (props) => {
   const { cartProducts } = props;
@@ -7,6 +8,7 @@ const CartPage = (props) => {
   cartProducts.map((product) => {
     TotalPrice += parseFloat(product.price);
   });
+  const Navigate = useNavigate();
   return (
     <div className="h-fit bg-gray-100 ">
       <h1 className="mb-10 text-center text-2xl font-bold">Cart Items</h1>
@@ -78,7 +80,7 @@ const CartPage = (props) => {
         <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
           <div className="mb-2 flex justify-between">
             <p className="text-gray-700">Subtotal</p>
-            <p className="text-gray-700">${(TotalPrice).toFixed(3)}</p>
+            <p className="text-gray-700">${TotalPrice.toFixed(3)}</p>
           </div>
           <div className="flex justify-between">
             <p className="text-gray-700">Shipping</p>
@@ -94,7 +96,12 @@ const CartPage = (props) => {
               <p className="text-sm text-gray-700">including VAT</p>
             </div>
           </div>
-          <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+          <button
+            className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
+            onClick={() => {
+              Navigate("/payment");
+            }}
+          >
             Check out
           </button>
         </div>

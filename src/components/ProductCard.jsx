@@ -96,9 +96,9 @@ const ProductCard = (props) => {
               <button className="bg-yellow-600 lg:mr-80  mt-5 text-white block rounded-md px-3 py-2 text-base font-medium "
                 onClick={(e) => {
                     e.stopPropagation();
-                  }}>Added to Cart</button>
+                  }}>Added to Bag</button>
               :
-              <button className="bg-gray-900 lg:mr-80  mt-5 text-white block rounded-md px-3 py-2 text-base font-medium " onClick={handleAddProductToCart}>Add to Cart</button>
+              <button className="bg-gray-900 lg:mr-80  mt-5 text-white block rounded-md px-3 py-2 text-base font-medium " onClick={handleAddProductToCart}>Add to Bag</button>
             }
           </div>
         </div>
