@@ -8,6 +8,7 @@ import {
 } from "../actions";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
+import Loader from "../components/Loader";
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -48,9 +49,11 @@ class Home extends React.Component {
       if (!categories.includes(product.category))
         categories.push(product.category);
     });
-    this.setState({
-      categories,
-    });
+    if (categories.length !== 0) {
+      this.setState({
+        categories,
+      });
+    }
   };
   render() {
     const { products, cartProducts } = this.props;
@@ -62,6 +65,9 @@ class Home extends React.Component {
       selectedCategory,
       sortSelected,
     } = this.state;
+    if (products.length == 0) {
+      return <Loader />;
+    }
     return (
       <div className="Home">
         <div className="bg-white">

@@ -7,6 +7,8 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const DELETED_PRODUCT = "DELETED_PRODUCT";
 export const ADD_PRODUCT = "ADD_PRODUCT";
+
+export const EDIT_PRODUCT = "EDIT_PRODUCT";
 export function fetchProducts(category) {
   const url = "https://excommerce-products.onrender.com/products";
   return function (dispatch) {
@@ -39,6 +41,28 @@ export function addProduct(formdata) {
       .catch((error) => {
         console.error("Error in Addding Product:", error);
       });
+  };
+}
+
+export function productEdit(productData, id) {
+  const url = `https://excommerce-products.onrender.com/products/${id}`;
+  return function (dispatch) {
+    axios
+      .put(url, productData)
+      .then((response) => {
+        console.log(response.data);
+        dispatch(productEdited(response.data, id));
+      })
+      .catch((error) => {
+        console.error("Error in Addding Product:", error);
+      });
+  };
+}
+export function productEdited(product, id) {
+  return {
+    type: EDIT_PRODUCT,
+    product,
+    id,
   };
 }
 

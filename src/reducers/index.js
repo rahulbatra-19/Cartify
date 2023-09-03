@@ -6,7 +6,7 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   DELETED_PRODUCT,
-  ADD_PRODUCT,
+  EDIT_PRODUCT,
 } from "../actions";
 
 const initialProductsState = {
@@ -60,6 +60,23 @@ export default function products(state = initialProductsState, action) {
         ...state,
         products: filteredArrayProducts,
       };
+    case EDIT_PRODUCT:
+      const itemIndex = state.products.findIndex(
+        (product) => product.id === action.id
+      );
+
+      if (itemIndex !== -1) {
+        const updatedProducts = [...state.products]; // Create a copy of the products array
+        updatedProducts[itemIndex] = action.product; // Update the specific item
+
+        return {
+          ...state,
+          products: updatedProducts, // Set the updated array in the new state
+        };
+      } else {
+        return state; // Return the current state if the item is not found
+      }
+
     default:
       return state;
   }
