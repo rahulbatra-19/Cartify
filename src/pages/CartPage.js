@@ -5,7 +5,7 @@ const CartPage = (props) => {
   const { cartProducts } = props;
   let TotalPrice = 0;
   cartProducts.map((product) => {
-    TotalPrice += product.price;
+    TotalPrice += parseFloat(product.price);
   });
   return (
     <div className="h-fit bg-gray-100 ">
@@ -78,7 +78,7 @@ const CartPage = (props) => {
         <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
           <div className="mb-2 flex justify-between">
             <p className="text-gray-700">Subtotal</p>
-            <p className="text-gray-700">${TotalPrice}</p>
+            <p className="text-gray-700">${(TotalPrice).toFixed(3)}</p>
           </div>
           <div className="flex justify-between">
             <p className="text-gray-700">Shipping</p>
@@ -89,7 +89,7 @@ const CartPage = (props) => {
             <p className="text-lg font-bold">Total</p>
             <div className="">
               <p className="mb-1 text-lg font-bold">
-                ${(TotalPrice + 4.99).toFixed(2)} USD
+                ${(TotalPrice + 4.99).toFixed(3)} USD
               </p>
               <p className="text-sm text-gray-700">including VAT</p>
             </div>

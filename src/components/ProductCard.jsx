@@ -1,6 +1,7 @@
-import { FaStar } from 'react-icons/fa';
+import { FaStar,FaExpeditedssl } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { GoPencil } from 'react-icons/go';
+import { FcCancel } from 'react-icons/fc';
 import { Navigate, redirect } from 'react-router-dom';
 import { fetchProduct, AddProductToCart , productEdit } from '../actions';
 import { useNavigate } from 'react-router-dom';
@@ -37,7 +38,13 @@ const ProductCard = (props) => {
         <li key={product.id} className=" border-solid p-5 border-b-2 justify-between gap-x-6 py-5">
         <div className="md:flex sm:block md:h-4/6 sm:h-1/3  min-w-0 gap-10  ">
         <img className="bg-gray-50 object-content md:w-1/5 h-full  sm:w-11/12 w-full "  src={product.image} alt="" />
-        <div className="min-w-0 flex-auto">
+            <div className="min-w-0 flex-auto">
+               <button className="float-right"
+            onClick={(e) => {
+              setEditing(false);
+            }}>
+            <FcCancel className='text-xl  mr-2'/> 
+              </button>
           <button className="float-right"
             onClick={(e) => {
               e.stopPropagation()
@@ -45,7 +52,7 @@ const ProductCard = (props) => {
               dispatch(productEdit(productData, product.id));
               setEditing(false);
             }}>
-            <GoPencil className='text-xl  mr-2'/> 
+            <FaExpeditedssl className='text-xl  mr-2'/> 
               </button>
               <span className='font-bold'>Tilte:</span>
           <input type='text' name='title' value={productData.title} onChange={handleInputChange} className="text-xl w-3/5 leading-6 bg-blue-200 border text-gray-900"></input>
