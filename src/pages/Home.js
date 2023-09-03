@@ -1,8 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchProducts, sortProductsInsc, sortProductsDesc , DeleteProduct} from "../actions";
+import {
+  fetchProducts,
+  sortProductsInsc,
+  sortProductsDesc,
+  DeleteProduct,
+} from "../actions";
+import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
-
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -21,15 +26,14 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-
     this.props.dispatch(fetchProducts());
     this.findCategories();
   }
-   handleDeleteProduct = (e, product) => {
-    e.stopPropagation(); 
+  handleDeleteProduct = (e, product) => {
+    e.stopPropagation();
 
     this.props.dispatch(DeleteProduct(product));
-  }
+  };
   handleOptionChange = (e) => {
     this.setState({
       selectedCategory: e.target.value,
@@ -44,9 +48,9 @@ class Home extends React.Component {
       if (!categories.includes(product.category))
         categories.push(product.category);
     });
-    // this.setState({
-    //   categories,
-    // });
+    this.setState({
+      categories,
+    });
   };
   render() {
     const { products, cartProducts } = this.props;
@@ -180,9 +184,12 @@ class Home extends React.Component {
           )}
           <main className=" px-2 sm:pxl-3 lg:pl-3">
             <div className="flex items-baseline border-b border-gray-200 pb-6 pt-6 mr-6 justify-between">
-              <button className="rounded-full p-1 text-white bg-blue-500">
+              <Link
+                to={"addProduct"}
+                className="rounded-full p-1 text-white bg-blue-500"
+              >
                 Add Product +
-              </button>
+              </Link>
               <div className="flex">
                 <div className="relative inline-block text-left">
                   <div>

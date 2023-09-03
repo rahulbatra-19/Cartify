@@ -6,6 +6,7 @@ export const SORT_PRODUCTSDESC = "SORT_PRODUCTSDESC";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const DELETED_PRODUCT = "DELETED_PRODUCT";
+export const ADD_PRODUCT = "ADD_PRODUCT";
 export function fetchProducts(category) {
   const url = "https://excommerce-products.onrender.com/products";
   return function (dispatch) {
@@ -26,6 +27,21 @@ export function fetchProducts(category) {
       });
   };
 }
+export function addProduct(formdata) {
+  const url = `https://excommerce-products.onrender.com/products/`;
+  return function (dispatch) {
+    axios
+      .post(url, formdata)
+      .then((response) => {
+        console.log("bwdjcbd", response);
+        // dispatch(addedProduct(response.data));
+      })
+      .catch((error) => {
+        console.error("Error in Addding Product:", error);
+      });
+  };
+}
+
 export function DeleteProduct(product) {
   const url = `https://excommerce-products.onrender.com/products/${product.id}`;
   return function (dispatch) {
