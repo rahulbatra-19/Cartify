@@ -2,7 +2,7 @@
   "name": "ecommerce-react-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://rahulbatra-19.github.io/ecommerce-react-app",
+  "homepage": "https://rahulbatra-19.github.io/ecommerce-react-app/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

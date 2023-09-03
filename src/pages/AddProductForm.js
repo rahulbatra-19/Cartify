@@ -91,7 +91,7 @@ const AddProducthtmlForm = (props) => {
                 name="description"
                 id="description"
                 rows="4"
-                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border"
+                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border"
                 placeholder="Tell about the product"
               ></textarea>
             </div>

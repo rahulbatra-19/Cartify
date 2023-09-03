@@ -7,6 +7,7 @@ import {
   REMOVE_FROM_CART,
   DELETED_PRODUCT,
   EDIT_PRODUCT,
+  ADD_PRODUCT,
 } from "../actions";
 
 const initialProductsState = {
@@ -59,6 +60,11 @@ export default function products(state = initialProductsState, action) {
       return {
         ...state,
         products: filteredArrayProducts,
+      };
+    case ADD_PRODUCT:
+      return {
+        ...state,
+        products: [...state.products, action.product],
       };
     case EDIT_PRODUCT:
       const itemIndex = state.products.findIndex(

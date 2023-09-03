@@ -32,22 +32,26 @@ export function fetchProducts(category) {
   };
 }
 export function addProduct(formdata) {
-  const url = `https://excommerce-products.onrender.com/products/`;
+  const url = `https://excommerce-products.onrender.com/products`;
   return function (dispatch) {
     axios
       .post(url, formdata)
       .then((response) => {
         toast.success("New Product added!!");
 
-        console.log("bwdjcbd", response);
-        // dispatch(addedProduct(response.data));
+        dispatch(addedProduct(response.data));
       })
       .catch((error) => {
         toast.error(`Error in Addding Product:, ${error}`);
       });
   };
 }
-
+export function addedProduct(product) {
+  return {
+    type: ADD_PRODUCT,
+    product,
+  };
+}
 export function productEdit(productData, id) {
   const url = `https://excommerce-products.onrender.com/products/${id}`;
   return function (dispatch) {
@@ -60,7 +64,6 @@ export function productEdit(productData, id) {
       })
       .catch((error) => {
         toast.error(`Error in Editing Product:, ${error}`);
-
       });
   };
 }
