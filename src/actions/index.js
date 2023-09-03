@@ -1,4 +1,6 @@
 import axios from "axios";
+import { toast } from "react-toastify";
+
 export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
 export const FETCH_PRODUCT = "FETCH_PRODUCT";
 export const SORT_PRODUCTSINSC = "SORT_PRODUCTSINSC";
@@ -35,11 +37,13 @@ export function addProduct(formdata) {
     axios
       .post(url, formdata)
       .then((response) => {
+        toast.success("New Product added!!");
+
         console.log("bwdjcbd", response);
         // dispatch(addedProduct(response.data));
       })
       .catch((error) => {
-        console.error("Error in Addding Product:", error);
+        toast.error(`Error in Addding Product:, ${error}`);
       });
   };
 }
@@ -51,10 +55,12 @@ export function productEdit(productData, id) {
       .put(url, productData)
       .then((response) => {
         console.log(response.data);
+        toast.success("Product Editted!!");
         dispatch(productEdited(response.data, id));
       })
       .catch((error) => {
-        console.error("Error in Addding Product:", error);
+        toast.error(`Error in Editing Product:, ${error}`);
+
       });
   };
 }
@@ -73,10 +79,11 @@ export function DeleteProduct(product) {
       .delete(url)
       .then(() => {
         console.log(product);
+        toast.success("Product Deleted!!");
         dispatch(DeletedProduct(product));
       })
       .catch((error) => {
-        console.error("Error in deleting Product:", error);
+        toast.error(`Error in deleting Product:, ${error}`);
       });
   };
 }
