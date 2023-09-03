@@ -12,7 +12,7 @@ class ProductPage extends React.Component {
     };
   }
   componentDidMount() {
-    console.log("StatePRoduct", this.props);
+    console.log(this.props.cartProducts.includes(this.props.product));
   }
   // shouldComponentUpdate(nextProps, nextState) {
   //   // Check the condition for re-rendering
@@ -101,21 +101,16 @@ class ProductPage extends React.Component {
                 </div>
               </div>
 
-              {cartProducts.find((product) => product.id === product.id) ? (
-                <button
-                  class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-400 px-8 py-3 text-base font-medium text-white hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:bg-yellow-600 focus:ring-offset-2"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                >
-                  Added to Cart
+              {cartProducts.includes(product) ? (
+                <button class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-400 px-8 py-3 text-base font-medium text-white hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:bg-yellow-600 focus:ring-offset-2">
+                  Added to Bag
                 </button>
               ) : (
                 <button
                   class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   onClick={this.handleAddToCart}
                 >
-                  Add to cart
+                  Add to Bag
                 </button>
               )}
             </div>
