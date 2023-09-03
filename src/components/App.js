@@ -1,5 +1,6 @@
 import { Route, Routes, useNavigate, useEffect } from "react-router-dom";
 import Navbar from "./Navbar";
+import { useEffect } from "react";
 import { Home, Page404, ProductPage, CartPage, PaymentGetaway } from "../pages";
 import { Provider } from "react-redux"; // Import Provider
 import AddProductForm from "../pages/AddProductForm";
