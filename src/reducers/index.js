@@ -10,12 +10,13 @@ import {
   ADD_PRODUCT,
 } from "../actions";
 
-// initial state 
+// initial state
 const initialProductsState = {
   product: {},
   products: [],
   cartProducts: [],
   loading: true,
+  categories: [],
 };
 export default function products(state = initialProductsState, action) {
   switch (action.type) {
@@ -32,12 +33,12 @@ export default function products(state = initialProductsState, action) {
       };
     case SORT_PRODUCTSINSC:
       return {
-        ...state, 
+        ...state,
         products: action.products.sort((a, b) => a.price - b.price),
       };
     case SORT_PRODUCTSDESC:
       return {
-        ...state, 
+        ...state,
         products: action.products.sort((a, b) => b.price - a.price),
       };
     case ADD_TO_CART:

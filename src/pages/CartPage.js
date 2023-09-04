@@ -12,12 +12,11 @@ const CartPage = (props) => {
   return (
     <div className="h-fit bg-gray-100 ">
       {cartProducts.length == 0 ? (
-        <h1 className="mb-10 text-center text-2xl font-bold"> No Cart Items</h1>
+        <h1 className="mb-10 text-center text-2xl font-bold">No Cart Items</h1>
       ) : (
         <>
           <h1 className="mb-10 text-center text-2xl font-bold">
-            {" "}
-            No Cart Items
+             Cart Items
           </h1>
 
           <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">

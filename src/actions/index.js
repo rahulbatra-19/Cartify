@@ -41,7 +41,6 @@ export function addProduct(formdata) {
       .post(url, formdata)
       .then((response) => {
         toast.success("New Product added!!");
-
         dispatch(addedProduct(response.data));
       })
       .catch((error) => {

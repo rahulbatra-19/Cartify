@@ -31,6 +31,16 @@ class Home extends React.Component {
     this.props.dispatch(fetchProducts());
     this.findCategories();
   }
+  componentDidUpdate(prevProps) {
+    // Check if the specific prop you want to watch has changed
+    if (this.props.products !== prevProps.products) {
+      // This function will be called when the specified prop changes
+      console.log("Props have changed:", this.props.products);
+
+      // Call your specific function here
+      this.findCategories();
+    }
+  }
   // dispatches delete product action
   handleDeleteProduct = (e, product) => {
     e.stopPropagation();
@@ -44,7 +54,7 @@ class Home extends React.Component {
     });
     this.props.dispatch(fetchProducts(e.target.value));
   };
-// It finds the catefory and shows in category section
+  // It finds the catefory and shows in category section
   findCategories = () => {
     const { products } = this.props;
     let categories = [];
