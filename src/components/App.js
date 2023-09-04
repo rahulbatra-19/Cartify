@@ -6,6 +6,7 @@ import { Provider } from "react-redux"; // Import Provider
 import AddProductForm from "../pages/AddProductForm";
 
 function App(props) {
+  // For when a url is entered the home component renders
   const navigate = useNavigate();
   useEffect(() => {
     navigate("/");

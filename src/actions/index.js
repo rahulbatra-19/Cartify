@@ -11,6 +11,7 @@ export const DELETED_PRODUCT = "DELETED_PRODUCT";
 export const ADD_PRODUCT = "ADD_PRODUCT";
 
 export const EDIT_PRODUCT = "EDIT_PRODUCT";
+// function for fetching the products and calling get api call
 export function fetchProducts(category) {
   const url = "https://excommerce-products.onrender.com/products";
   return function (dispatch) {
@@ -31,6 +32,8 @@ export function fetchProducts(category) {
       });
   };
 }
+// function for adding new product and calling api post call
+
 export function addProduct(formdata) {
   const url = `https://excommerce-products.onrender.com/products`;
   return function (dispatch) {
@@ -46,12 +49,16 @@ export function addProduct(formdata) {
       });
   };
 }
+// the addProduct would dispatch this function and this would send product to reducer
 export function addedProduct(product) {
   return {
     type: ADD_PRODUCT,
     product,
   };
 }
+
+// function for editing product and calling put api call
+
 export function productEdit(productData, id) {
   const url = `https://excommerce-products.onrender.com/products/${id}`;
   return function (dispatch) {
@@ -67,6 +74,7 @@ export function productEdit(productData, id) {
       });
   };
 }
+// the productEdit would dispatch this function and this would send product to reducer
 export function productEdited(product, id) {
   return {
     type: EDIT_PRODUCT,
@@ -74,6 +82,7 @@ export function productEdited(product, id) {
     id,
   };
 }
+// function for deleting product and calling api delete call
 
 export function DeleteProduct(product) {
   const url = `https://excommerce-products.onrender.com/products/${product.id}`;
@@ -97,12 +106,14 @@ export function DeletedProduct(product) {
   };
 }
 
+// function for adding the product to cart
 export function AddProductToCart(product) {
   return {
     type: ADD_TO_CART,
     product,
   };
 }
+// function for removing the product from cart
 
 export function RemoveProductFromCart(product) {
   return {
@@ -124,7 +135,7 @@ export function fetchingProducts(products) {
     products,
   };
 }
-
+// Sorting products functions
 export function sortProductsInsc(products) {
   return {
     type: SORT_PRODUCTSINSC,

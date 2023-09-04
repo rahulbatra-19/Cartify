@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const AddProducthtmlForm = (props) => {
   const { products } = props;
   const Navigate = useNavigate();
+  // html form for add product
   const [htmlFormData, sethtmlFormData] = useState({
     id: products[products.length - 1].id + 1,
     title: "",
@@ -17,11 +18,13 @@ const AddProducthtmlForm = (props) => {
       count: 0,
     },
   });
+  // function handle submiision and adding product
   const handleSubmission = () => {
     console.log(htmlFormData);
     props.dispatch(addProduct(htmlFormData));
     Navigate("/");
   };
+  // form data for item
   const handleInputChange = (event) => {
     // console.log(event.target);
     const { name, value } = event.target;

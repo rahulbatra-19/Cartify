@@ -1,3 +1,4 @@
+// this  is a page404 if a user feeds a url which is not supported by app
 import { Link } from "react-router-dom";
 const Page404 = () => {
   return (

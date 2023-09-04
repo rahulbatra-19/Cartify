@@ -1,6 +1,6 @@
 import React from "react";
 import Loader from "../components/Loader";
-// import { connect } from "react-redux";
+import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { AddProductToCart } from "../actions";
 
@@ -11,11 +11,7 @@ class ProductPage extends React.Component {
       loadingComp: true,
     };
   }
-  componentDidMount() {}
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   // Check the condition for re-rendering
-  //   return this.state.shouldUpdate !== nextState.shouldUpdate;
-  // }
+  // calling action for adding product to cart
   handleAddToCart = (e) => {
     e.stopPropagation();
     this.props.dispatch(AddProductToCart(this.props.product));

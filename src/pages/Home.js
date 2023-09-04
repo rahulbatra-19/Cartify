@@ -26,22 +26,25 @@ class Home extends React.Component {
     };
   }
 
+  // this is home so it fetches the products
   componentDidMount() {
     this.props.dispatch(fetchProducts());
     this.findCategories();
   }
+  // dispatches delete product action
   handleDeleteProduct = (e, product) => {
     e.stopPropagation();
 
     this.props.dispatch(DeleteProduct(product));
   };
+  // this is for category if category is seleced it fetches that particular category products
   handleOptionChange = (e) => {
     this.setState({
       selectedCategory: e.target.value,
     });
     this.props.dispatch(fetchProducts(e.target.value));
   };
-
+// It finds the catefory and shows in category section
   findCategories = () => {
     const { products } = this.props;
     let categories = [];
@@ -57,7 +60,6 @@ class Home extends React.Component {
   };
   render() {
     const { products, cartProducts } = this.props;
-    // console.log(products);
     const {
       sortClicked,
       showFilters,

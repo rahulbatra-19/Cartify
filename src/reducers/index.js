@@ -10,6 +10,7 @@ import {
   ADD_PRODUCT,
 } from "../actions";
 
+// initial state 
 const initialProductsState = {
   product: {},
   products: [],
@@ -31,12 +32,12 @@ export default function products(state = initialProductsState, action) {
       };
     case SORT_PRODUCTSINSC:
       return {
-        ...state, // Make sure to copy the existing state
+        ...state, 
         products: action.products.sort((a, b) => a.price - b.price),
       };
     case SORT_PRODUCTSDESC:
       return {
-        ...state, // Make sure to copy the existing state
+        ...state, 
         products: action.products.sort((a, b) => b.price - a.price),
       };
     case ADD_TO_CART:

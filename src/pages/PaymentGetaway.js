@@ -1,9 +1,10 @@
+// this payemt Getaway is just ui it does nothing
 const PaymentGetaway = () => {
   return (
     <div className="min-w-screen min-h-screen bg-gray-200 flex items-center justify-center px-5 pb-10 pt-16">
       <div
         className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700"
-        style={{maxWidth: "600px"}}
+        style={{ maxWidth: "600px" }}
       >
         <div className="w-full pt-1 pb-5">
           <div className="bg-indigo-500 text-white overflow-hidden rounded-full w-20 h-20 -mt-16 mx-auto shadow-lg flex justify-center items-center">

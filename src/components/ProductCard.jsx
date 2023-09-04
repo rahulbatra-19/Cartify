@@ -12,18 +12,19 @@ const ProductCard = (props) => {
   const [productData, setProductData] = useState(product);
   const [editing, setEditing] = useState(false);
   const Navigate = useNavigate();
+
+  // It is for when a product is clicked it goes to its product page
   const handleRedirect = () => {
     
     props.dispatch(fetchProduct(product));
     Navigate(`/product/${product.id}`);
   }
-  const handleEditProduct = () => {
-    
-  }
+  // function for adding product to cart
   const handleAddProductToCart = (e) => {
     e.stopPropagation(); 
     props.dispatch(AddProductToCart(product));
   }
+  // Editing form handling
    const handleInputChange = (event) => {
     console.log(event.target);
     const { name, value } = event.target;
