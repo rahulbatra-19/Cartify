@@ -57,7 +57,7 @@ class Home extends React.Component {
   };
   render() {
     const { products, cartProducts } = this.props;
-    console.log(products);
+    // console.log(products);
     const {
       sortClicked,
       showFilters,

@@ -36,7 +36,6 @@ root.render(
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="colored"
       />
       <App store={store} />
     </Router>

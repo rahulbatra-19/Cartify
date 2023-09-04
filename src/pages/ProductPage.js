@@ -11,9 +11,7 @@ class ProductPage extends React.Component {
       loadingComp: true,
     };
   }
-  componentDidMount() {
-    console.log(this.props.cartProducts.includes(this.props.product));
-  }
+  componentDidMount() {}
   // shouldComponentUpdate(nextProps, nextState) {
   //   // Check the condition for re-rendering
   //   return this.state.shouldUpdate !== nextState.shouldUpdate;
@@ -26,6 +24,9 @@ class ProductPage extends React.Component {
   render() {
     const { product, cartProducts } = this.props;
     const rate = Math.round(product.rating.rate);
+    const found = this.props.cartProducts.some(
+      (product) => product.id === this.props.product.id
+    );
 
     return (
       <div class="bg-white">
@@ -101,7 +102,7 @@ class ProductPage extends React.Component {
                 </div>
               </div>
 
-              {cartProducts.includes(product) ? (
+              {found ? (
                 <button class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-400 px-8 py-3 text-base font-medium text-white hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:bg-yellow-600 focus:ring-offset-2">
                   Added to Bag
                 </button>
