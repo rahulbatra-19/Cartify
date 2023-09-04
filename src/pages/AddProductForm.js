@@ -63,7 +63,7 @@ const AddProducthtmlForm = (props) => {
                 htmlFor="price"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Price
+                Price $
               </label>
             </div>
             <div className="mt-2">

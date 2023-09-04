@@ -1,6 +1,6 @@
-Ecommerce React App
+Cartify-ecommerce React App
 
-Welcome to the Ecommerce React App! This project showcases the frontend of an ecommerce website where users can browse and interact with a wide range of products. The app utilizes Redux for state management, allowing a seamless shopping experience. Dive into the world of online shopping with our user-friendly interface!
+Welcome to the Cartify-Ecommerce React App! This project showcases the  an ecommerce website where users can browse and interact with a wide range of products. The app utilizes Redux for state management, and routes for pages management  allowing a seamless shopping experience. Dive into the world of online shopping with our user-friendly interface!
 
 
 
