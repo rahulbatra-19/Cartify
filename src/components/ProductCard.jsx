@@ -55,13 +55,14 @@ const ProductCard = (props) => {
             }}>
             <FaExpeditedssl className='text-xl  mr-2'/> 
               </button>
-              <span className='font-bold'>Tilte:</span>
+              <span className='font-bold'>Title:</span>
           <input type='text' name='title' value={productData.title} onChange={handleInputChange} className="text-xl w-3/5 leading-6 bg-blue-200 border text-gray-900"></input>
               <p className="mt-1  text-s leading-5 text-gray-500">{productData.rating.rate}<FaStar className="inline text-yellow-400 mb-1" /> ({productData.rating.count})</p>
               
               <span className='font-bold'>Description:</span>
              <textarea  value={productData.description} name='description' onChange={handleInputChange}  className="mt-3 w-4/5  bg-blue-200 border text-sm h-fit  lg:mb-0 leading-6 text-gray-900"></textarea>
               <div className=" justify-between  sm:inline  text-gray-900">
+                <br />
                 <span className='font-bold mt-4'>Price:</span>
                 <input type='number' name='price' value={productData.price} onChange={handleInputChange} className=" bg-blue-200 border mt-3"></input>
 <br />

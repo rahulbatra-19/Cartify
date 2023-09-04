@@ -1,6 +1,4 @@
 import React from "react";
-import Loader from "../components/Loader";
-import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { AddProductToCart } from "../actions";
 
@@ -18,7 +16,7 @@ class ProductPage extends React.Component {
   };
 
   render() {
-    const { product, cartProducts } = this.props;
+    const { product } = this.props;
     const rate = Math.round(product.rating.rate);
     const found = this.props.cartProducts.some(
       (product) => product.id === this.props.product.id
@@ -89,12 +87,12 @@ class ProductPage extends React.Component {
                     ))}
                   </div>
                   <p class="sr-only">{product.rating.rate} out of 5 stars</p>
-                  <a
+                  <span
                     href="#"
                     class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
                   >
                     {product.rating.count} reviews
-                  </a>
+                  </span>
                 </div>
               </div>
 
