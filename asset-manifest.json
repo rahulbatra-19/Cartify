@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Cartify/static/css/main.ff822645.css",
-    "main.js": "/Cartify/static/js/main.1f0681c9.js",
+    "main.js": "/Cartify/static/js/main.8583e0c9.js",
     "index.html": "/Cartify/index.html",
     "main.ff822645.css.map": "/Cartify/static/css/main.ff822645.css.map",
-    "main.1f0681c9.js.map": "/Cartify/static/js/main.1f0681c9.js.map"
+    "main.8583e0c9.js.map": "/Cartify/static/js/main.8583e0c9.js.map"
   },
   "entrypoints": [
     "static/css/main.ff822645.css",
-    "static/js/main.1f0681c9.js"
+    "static/js/main.8583e0c9.js"
   ]
 }
